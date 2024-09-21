@@ -8,6 +8,9 @@
     *{
        border: 1px solid white;
      }
+     p{
+        border: 1px  solid blue;
+     }
         header{
             font-size: large;
             height: 15%;
@@ -30,21 +33,44 @@
 </head>
 
 <body>
-   <header> 欢迎来到我的网页
-
-   </header>
-    <main>
-        内容
-    </main>
+    <header>
+        我的项目CET6
+      </header>
+      <main>
+        <p id="word"></p>
+        <p id="pron"></p>
+        <p id="chinese"></p>
+      </main>
     <footer>
   江西科技师范大学 元宇宙产业学院22计算机科学与技术二班
  <p>20223470袁滔滔</p>
 
     </footer>
-    <script>
-        document.body.style.height=innerHeight-50+'px'
-        ne
-    </script>
-
+    
 </body>
+<script>
+    let strCET6 = '' ;
+    let arrCET6 = [] ;
+    fetch('cet6.txt')
+    .then(res => res.text())
+    .then(txt => {
+                  strCET6 = txt ;
+                  arrCET6 =  strCET6.split('\r\n') ;
+                  let rand = Math.floor(arrCET6.length * Math.random() ) ;
+                  let cetWord = arrCET6[rand] ;
+                  let begin = cetWord.indexOf('\t') ;
+                  let end =  cetWord.lastIndexOf('\t') ;
+                  let word = cetWord.slice(0,begin) ;
+                  let pron = cetWord.slice(begin+1,end) ;
+                  let chinese = cetWord.slice(end+1) ;
+                     select('#word').textContent = word ;
+                     select('#pron').textContent = pron ;
+                     select('#chinese').textContent =chinese ;
+                 }) ;
+    
+    function select(str){
+     let dom = document.querySelector(str);
+     return dom ;
+    }
+    </script>
 </html>
